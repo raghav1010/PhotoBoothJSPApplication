@@ -1,0 +1,29 @@
+<%@page contentType="text/html" import="java.sql.*"%>
+<html><body>
+        <h1></h1>
+    <%
+        String des=request.getParameter("Search");
+        
+
+        try{
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","tiger");
+    PreparedStatement stmt = con.prepareStatement("select link from des where des =?");
+    stmt.setString(1, des);  
+    ResultSet rs = stmt.executeQuery();
+    if(rs.next()){
+       
+            
+%>
+            <jsp:include page="link" ></jsp:include>
+<%
+        }
+   
+}
+        }catch(Exception e){out.println(e);}
+   %>
+    </body>
+</html>
+
+
+
